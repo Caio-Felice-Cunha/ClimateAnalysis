@@ -1,5 +1,13 @@
 # ClimateAnalysis
-Analyzing the Berkeley Earth database about US Temperature.
+Analyzing the Berkeley Earth database about US Temperature.<br>
 [The full report](https://github.com/Caio-Felice-Cunha/ClimateAnalysis/blob/main/V2_Climate-Report.pdf)
 
-![baixados](https://user-images.githubusercontent.com/111542025/225624383-811dd3f5-8a5a-462c-bc64-5265a5a13ca5.jpeg)
+<div align="center">
+![Climate](https://user-images.githubusercontent.com/111542025/225625675-9bb6d54a-c9b3-43d0-87de-8b77a08fdd79.png)
+</div>
+
+## Improvements compared to the 1st version
+* Database creation in MySQL;
+* MySQL connection;
+* More graphics;
+* Analyzes
