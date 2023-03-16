@@ -12,7 +12,7 @@ Analyzing the Berkeley Earth database about US Temperature.<br>
 * Analyzes
 
 ## Business Problem
-> For this project, MySQL was used as the database for storage. Data was collected from [Berkeley Earth]https://berkeleyearth.org/data/.
+> For this project, MySQL was used as the database for storage. Data was collected from [Berkeley Earth](https://berkeleyearth.org/data/).
 
 For this project there was no specific company to be analyzed. <br>
 However, temperature analysis can be used for agriculture, civil construction models, livestock, etc. <br>
