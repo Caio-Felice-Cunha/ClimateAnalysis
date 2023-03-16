@@ -26,9 +26,9 @@
 con = dbConnect(
   MySQL(), 
   user = "root", 
-  password = "Caiodwc2135", 
-  dbname = "climatedb", 
-  host = "localhost")
+  password = a, 
+  dbname = db, 
+  host = ht)
 
 
 
