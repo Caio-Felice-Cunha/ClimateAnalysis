@@ -1,15 +1,21 @@
 # ClimateAnalysis
 Analyzing the Berkeley Earth database about US Temperature.<br>
-[The full report](https://github.com/Caio-Felice-Cunha/ClimateAnalysis/blob/main/V2_Climate-Report.pdf)
+[The full report](https://github.com/Caio-Felice-Cunha/ClimateAnalysis/blob/main/V2_Climate-Report.pdf) <br>
+[Power BI Dashboard](https://app.powerbi.com/view?r=eyJrIjoiZTg4MzA5OTYtZjBjZC00YjdiLTgzYTYtOTNkNmIyMjVhNWQwIiwidCI6IjA4OTM0YTNmLWFkNmUtNDgzZS1hNjhlLTUxYWI3OTI1YmFiNyJ9)<br>
+[Power BI Power Apps](https://app.powerbi.com/Redirect?action=OpenApp&appId=f6eebfe2-d3d9-472c-82d9-ddd925f736b9&ctid=08934a3f-ad6e-483e-a68e-51ab7925bab7)
 
 ![Climate](https://user-images.githubusercontent.com/111542025/225629592-184b2cba-a3fd-45ed-bab7-e0c3b5a12c8e.png)
 
 
-## Improvements compared to the 1st version
+## Improvements:
+### Improvements compared to the 1st version
 * Database creation in MySQL;
 * MySQL connection;
 * More graphics;
 * Analyzes
+
+### Improvements compared to the 2nd version
+* Power Bi Dashboard (Report)
 
 ## Business Problem
 > For this project, MySQL was used as the database for storage. Data was collected from [Berkeley Earth](https://berkeleyearth.org/data/).
@@ -39,5 +45,4 @@ However, those who need lower temperatures to survive will need to move to regio
 It follows that based on the data provided, US temperatures will increase in the near future. Even though the heat apparently increases a little each year, when we stack up the difference from past times, this change in temperature will affect us all.
 
 ## Next Steps
-Create a PowerBI dashboard for self-service analysis of decision makers <br>
 Improve US statistical and regional analysis
