@@ -45,4 +45,5 @@ However, those who need lower temperatures to survive will need to move to regio
 It follows that based on the data provided, US temperatures will increase in the near future. Even though the heat apparently increases a little each year, when we stack up the difference from past times, this change in temperature will affect us all.
 
 ## Next Steps
-Improve US statistical and regional analysis
+* Improve US statistical and regional analysis
+* Improve Power BI graphics with histogram and tooltips
