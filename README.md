@@ -47,3 +47,4 @@ It follows that based on the data provided, US temperatures will increase in the
 ## Next Steps
 * Improve US statistical and regional analysis
 * Improve Power BI graphics with histogram and tooltips
+* Understand the correlation between variables
