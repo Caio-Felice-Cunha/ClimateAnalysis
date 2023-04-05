@@ -48,3 +48,7 @@ It follows that based on the data provided, US temperatures will increase in the
 * Improve US statistical and regional analysis
 * Improve Power BI graphics with histogram and tooltips
 * Understand the correlation between variables
+
+## Disclaimer 
+A good part of this project was largely done in the Data Science Academy, Big Data Analytics with R and Microsoft Azure Machine Learning course (part of the Data Scientist training)
+
