@@ -31,8 +31,10 @@ We also assume that the rise in temperature can cause changes in the way compani
 ## Solution Strategy
 To bring a solution to a business problem, a comparison was made with the last years in relation to previous years so that there is a sense of how temperatures can change over time. <br>
 For this we use the following tools: <br>
-* MySQL
-* RStudio
+* Step 01: Conect to MySQL;
+* Step 02: Import using SQL in RStudio;
+* Step 03: Preparating and Organizating Data;
+* Step 04: Analyzing the data.
 
 ## Data Insights
 Temperatures have risen steadily over the last few years and the trend is for it to continue to rise.
