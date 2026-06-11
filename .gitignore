@@ -1,0 +1,19 @@
+# R
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rproj
+.Renviron
+
+# Data files (the Berkeley Earth CSV is large and not committed)
+*.csv
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
