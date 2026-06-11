@@ -1,0 +1,12 @@
+# Copy this file to .Renviron (in your home directory or the project root)
+# and fill in your own values. .Renviron is gitignored so credentials are
+# never committed. V2_Climate_Analysis.R reads these with Sys.getenv().
+#
+# The database must contain a table named `globalclimate` loaded from the
+# Berkeley Earth by-city CSV (https://berkeleyearth.org/data/).
+
+MYSQL_USER=root
+MYSQL_PASSWORD=
+MYSQL_DB=climate
+MYSQL_HOST=127.0.0.1
+MYSQL_PORT=3306
