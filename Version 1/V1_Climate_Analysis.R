@@ -6,23 +6,16 @@
 
 
 ## Loading the necessary libraries:
-  ## install.packages("readr")
   ## install.packages("data.table")
   ## install.packages("dplyr")
   ## install.packages("ggplot2")
-  library(readr)
   library(dplyr)
   library(ggplot2)
-  library(scales)
   library(data.table)
-  library(tibble)
-  library(RMySQL)
 
-## Setting the work directory
-setwd("C:\\Users\\Caio\\OneDrive\\Desktop PC\\Desktop\\Portfolio\\Climate")
-
-## Loading the file from the directory
-## For this case, the 'fread' is faster and lighter
+## Loading the file from the working directory.
+## Place GlobalClimate.csv (the Berkeley Earth by-city CSV) in the same folder,
+## or set the path below. 'fread' is faster and lighter for a file this size.
 df <- fread("GlobalClimate.csv")
 
 ## For this particular project, I just looked into North American temperatures
@@ -31,12 +24,13 @@ df <- fread("GlobalClimate.csv")
 
 US_Climate <- subset(df, Country == "United States", select = c(dt, AverageTemperature, AverageTemperatureUncertainty, City))
 
-## Percentage of null values
-sum(is.na(US_Climate)) / nrow(US_Climate)
+## Fraction of rows that contain at least one missing value
+## (these are the rows that na.omit will drop). About 7% of rows.
+mean(!complete.cases(US_Climate))
 
-## We have 7% of the data as "na", so I chose to just delete them
+## We drop those incomplete rows
 US_Climate <- na.omit(US_Climate)
-sum(is.na(US_Climate)) / nrow(US_Climate)
+mean(!complete.cases(US_Climate))
 
 str(US_Climate)
 
@@ -67,9 +61,8 @@ for (n in x) {
 }
 
 ###################################################################
-###### testando o group by para fazer um plot melhor (com menos dados)
-###### no momento eu só agrupei por ano e peguei a media de temperatura
-###### usei Dallas de cobaia :D
+## Group by year to make a lighter plot with fewer points.
+## Group by year and take the mean temperature, using Dallas as a test city.
 
 dallas_df <- US_Climate[US_Climate$City == 'Dallas']
 
@@ -82,17 +75,16 @@ ggplot(dallas_df2, aes( x = Year, y = Avgtemp)) +
 
 summary(dallas_df2)
 
-View(dallas_df)
-View(dallas_df2)
-
 ###################################################################
-###### tentei stacakr os graficos e deixar interativo
+## Stacked, interactive area chart of all US cities from 2001 onward.
 library(viridis)
-#install.packages('hrbrthemes')
+## install.packages('hrbrthemes')
 library(hrbrthemes)
 library(plotly)
 
-the_cities_df <-US_Climate#[US_Climate$Country %in% c('Dallas', 'Houston', 'Austin')]
+## This keeps every US city. To restrict to specific cities, filter on City,
+## for example: US_Climate[US_Climate$City %in% c('Dallas','Houston','Austin'),]
+the_cities_df <- US_Climate
 
 the_cities_df2 <- the_cities_df[the_cities_df$Year > 2000]
 
@@ -102,15 +94,13 @@ the_cities_df3 <- the_cities_df2[, c(2,4,6)]%>%
 
 plot(x = the_cities_df3$Year, y = the_cities_df3$Avgtemp)
 
-View(the_cities_df3)
-
 # Plot
-p <- the_cities_df3 %>% 
+p <- the_cities_df3 %>%
   ggplot( aes(x=Year, y=Avgtemp, fill=City, text=City)) +
   geom_area( ) +
   scale_fill_viridis(discrete = TRUE) +
   theme(legend.position="none") +
-  ggtitle("Popularity of American names in the previous 30 years") +
+  ggtitle("Average annual temperature by US city (2001+)") +
   theme_ipsum() +
   theme(legend.position="none")
 

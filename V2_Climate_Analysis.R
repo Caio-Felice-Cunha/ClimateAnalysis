@@ -6,29 +6,37 @@
 
 
 ## Loading the necessary libraries:
-  ## install.packages("readr")
   ## install.packages("data.table")
   ## install.packages("dplyr")
   ## install.packages("ggplot2")
-  ## install.packages('hrbrthemes')
+  ## install.packages("hrbrthemes")
+  ## install.packages("viridis")
+  ## install.packages("DBI")
+  ## install.packages("RMariaDB")
   library(viridis)
   library(hrbrthemes)
-  library(plotly)
-  library(readr)
   library(dplyr)
   library(ggplot2)
-  library(scales)
   library(data.table)
-  library(tibble)
-  library(RMySQL)
+  library(DBI)
+  library(RMariaDB)
 
-## Creating connection with MySQL
-con = dbConnect(
-  MySQL(), 
-  user = "root", 
-  password = a, 
-  dbname = db, 
-  host = ht)
+## Creating connection with MySQL/MariaDB.
+## Credentials are read from environment variables so nothing is hardcoded.
+## Set them before running, for example in ~/.Renviron or the shell:
+##   MYSQL_USER=root
+##   MYSQL_PASSWORD=your_password
+##   MYSQL_DB=climate
+##   MYSQL_HOST=127.0.0.1
+##   MYSQL_PORT=3306
+## The table `globalclimate` must be loaded from the Berkeley Earth by-city CSV.
+con <- dbConnect(
+  RMariaDB::MariaDB(),
+  user     = Sys.getenv("MYSQL_USER", "root"),
+  password = Sys.getenv("MYSQL_PASSWORD"),
+  dbname   = Sys.getenv("MYSQL_DB", "climate"),
+  host     = Sys.getenv("MYSQL_HOST", "127.0.0.1"),
+  port     = as.integer(Sys.getenv("MYSQL_PORT", "3306")))
 
 
 
@@ -58,12 +66,13 @@ US_Climate$dt <- as.POSIXct(US_Climate$dt, format = "%Y-%m-%d")
 US_Climate$Month <- month(US_Climate$dt)
 US_Climate$Year <- year(US_Climate$dt)
 
-## Percentage of null values
-sum(is.na(US_Climate)) / nrow(US_Climate)
+## Fraction of rows that contain at least one missing value
+## (these are the rows that na.omit will drop). About 8% of rows.
+mean(!complete.cases(US_Climate))
 
-## We have 8% of the data as "na", so I chose to just delete them
+## We drop those incomplete rows
 US_Climate <- na.omit(US_Climate)
-sum(is.na(US_Climate)) / nrow(US_Climate)
+mean(!complete.cases(US_Climate))
 
 #### Analysis:
 # When looking at the overall temperature graph, we notice that it assumes what we call the "Left Skewed Distribution", as temperatures tend to be greater than 0
@@ -177,9 +186,12 @@ range(Capital_Cities_Year$Avgtemp[Capital_Cities_Year$Year > 1990])
 mean(Capital_Cities_Year$Avgtemp[Capital_Cities_Year$Year < 1760])
 mean(Capital_Cities_Year$Avgtemp[Capital_Cities_Year$Year > 1990])
 
-## Despite the thermal amplitude not having changed so much, it is possible to conclude that in recent times the average temperatures have been rising, with a difference of approximately 3.5º
+## Despite the thermal amplitude not having changed so much, it is possible to conclude that in recent times the average temperatures have been rising. The stored outputs give a mean of 10.79774 for years < 1760 and 14.14854 for years > 1990, a difference of 3.35 degrees Celsius.
 
-## Now, let's compare the results with some Texas cities
+## Now, let's compare the results with some Texas cities.
+## Note: in the Berkeley Earth by-city dataset, nearby cities share the same
+## grid series, so Fort Worth is identical to Dallas and San Antonio is
+## identical to Austin. There are effectively 3 distinct Texas series, not 5.
 Texas_Cities <- c('Austin','Dallas', 'Fort Worth', 'Houston', 'San Antonio')
 
 par(mfrow=c(3,2))
@@ -232,7 +244,7 @@ ggplot(Texas_Cities_df,
     limit = c(
       min(Texas_Cities_df$dt),
       min(Texas_Cities_df$dt)+(365*5))) +
-  ggtitle('First 10 Years (Texas Cities)')
+  ggtitle('First 05 Years (Texas Cities)')
 
 
 ## Statistics
@@ -248,7 +260,7 @@ for (city in Texas_Cities) {
 
 
 #### Analysis:
-## As we have seen, the state of Texas continues to increase temperatures over the years, as well as having an average temperature higher than the average of the country by about 5º to 7º
+## As we have seen, the state of Texas continues to increase temperatures over the years. From the stored outputs the US mean is 13.97 degrees Celsius and the Texas city means range from 18.09 (Dallas) to 20.25 (Houston), so Texas runs about 4 to 6 degrees Celsius above the national average.
 
 
 
